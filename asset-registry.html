@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEISMS | Political Asset Registry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-container">
+  <aside class="sidebar">[Same sidebar as index.html]</aside>
+  <main class="main-content">
+    <div class="top-bar"><div class="page-title"><h2>Political Asset Registry</h2><p>Section 6.7 & 7 – Identification → Verification → Categorization → Scoring → Monitoring → Engagement</p></div></div>
+    
+    <!-- Verification Workflow (Section 7) -->
+    <div class="card-panel">
+      <h3><i class="fas fa-check-double"></i> Multi-Layer Verification Framework</h3>
+      <div class="verification-steps">
+        <div class="step active">1. Identification</div><div class="step">2. Verification</div><div class="step">3. Categorization</div><div class="step">4. Scoring</div><div class="step">5. Monitoring</div><div class="step">6. Engagement</div>
+      </div>
+    </div>
+    
+    <div class="stats-row">
+      <div class="stat-card"><div class="label">Total Assets</div><div class="value" id="total-assets">0</div></div>
+      <div class="stat-card"><div class="label">Verified</div><div class="value" id="verified-assets">0</div></div>
+      <div class="stat-card"><div class="label">Pending Verification</div><div class="value" id="pending-assets">0</div></div>
+      <div class="stat-card"><div class="label">Avg Performance</div><div class="value" id="avg-score">0%</div></div>
+    </div>
+    
+    <div class="card-panel">
+      <input type="text" id="search-assets" placeholder="Search by name, LGA, role..." style="width:100%; padding:12px; margin-bottom:20px; background:#1a1e2f; border:1px solid #2d3348; border-radius:10px; color:white;">
+      <div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Name</th><th>Role</th><th>LGA</th><th>Ward</th><th>Score</th><th>Influence</th><th>Status</th><th>Action</th></tr></thead><tbody id="assets-table-body"></tbody></table></div>
+    </div>
+    <footer class="footer"></footer>
+  </main>
+</div>
+<script src="data.js"></script>
+<script>
+  document.getElementById('total-assets').innerText = politicalAssets.length;
+  document.getElementById('verified-assets').innerText = politicalAssets.filter(a => a.verificationStatus === 'verified').length;
+  document.getElementById('pending-assets').innerText = politicalAssets.filter(a => a.verificationStatus === 'pending').length;
+  document.getElementById('avg-score').innerText = Math.floor(politicalAssets.reduce((s,a)=>s+a.performanceScore,0)/politicalAssets.length) + '%';
+  function renderAssets(filter=''){ 
+    let filtered = politicalAssets.filter(a=>a.name.toLowerCase().includes(filter)||a.lga.toLowerCase().includes(filter)||a.role.toLowerCase().includes(filter));
+    document.getElementById('assets-table-body').innerHTML = filtered.slice(0,50).map(a=>`<tr><td>${a.name}</td><td>${a.role}</td><td>${a.lga}</td><td>${a.ward}</td><td>${a.performanceScore}%</td><td><span class="badge badge-warning">${a.influenceLevel}</span></td><td><span class="badge ${a.verificationStatus==='verified'?'badge-success':'badge-warning'}">${a.verificationStatus}</span></td><td><button class="btn-outline" style="padding:4px 12px;">Verify</button></td></tr>`).join('');
+  }
+  renderAssets();
+  document.getElementById('search-assets').addEventListener('input', e=>renderAssets(e.target.value.toLowerCase()));
+</script>
+</body>
+</html>

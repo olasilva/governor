@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEISMS | LGA Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-container">
+  <aside class="sidebar">
+    <div class="sidebar-header"><h1><i class="fas fa-chart-line"></i> TEISMS</h1><p>TARABA ELECTORAL INTELLIGENCE SYSTEM</p></div>
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-item"><i class="fas fa-tachometer-alt"></i><span>State Command</span></a>
+      <a href="governor-portfolio.html" class="nav-item"><i class="fas fa-crown"></i><span>Governor's Portfolio</span></a>
+      <a href="lga-dashboard.html" class="nav-item active"><i class="fas fa-building"></i><span>LGA Dashboards</span></a>
+      <a href="asset-registry.html" class="nav-item"><i class="fas fa-database"></i><span>Asset Registry</span></a>
+      <a href="field-reporting.html" class="nav-item"><i class="fas fa-mobile-alt"></i><span>Field Reporting</span></a>
+      <a href="electoral-map.html" class="nav-item"><i class="fas fa-map"></i><span>GIS Electoral Map</span></a>
+      <a href="sentiment.html" class="nav-item"><i class="fas fa-chart-line"></i><span>Sentiment Analytics</span></a>
+      <a href="wards.html" class="nav-item"><i class="fas fa-users"></i><span>Ward Intelligence</span></a>
+      <a href="polling-units.html" class="nav-item"><i class="fas fa-flag-checkered"></i><span>Polling Units</span></a>
+      <a href="implementation.html" class="nav-item"><i class="fas fa-road"></i><span>Implementation</span></a>
+      <a href="security.html" class="nav-item"><i class="fas fa-shield-alt"></i><span>Security & Risk</span></a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="top-bar"><div class="page-title"><h2 id="lga-name">LGA Dashboard</h2><p>Section 6.2 – Operational management, field coordination, real-time intelligence</p></div></div>
+    
+    <div class="lga-selector">
+      <label>Select LGA: </label>
+      <select id="lga-select" onchange="loadLGA(this.value)">
+        <option value="1">Jalingo</option><option value="2">Bali</option><option value="3">Gassol</option><option value="4">Wukari</option><option value="5">Ibi</option><option value="6">Takum</option><option value="7">Donga</option><option value="8">Kurmi</option><option value="9">Sardauna</option><option value="10">Zing</option><option value="11">Lau</option><option value="12">Ardo Kola</option><option value="13">Karim Lamido</option><option value="14">Yorro</option><option value="15">Gashaka</option><option value="16">Ussa</option>
+      </select>
+    </div>
+    
+    <div class="stats-row" id="lga-stats"></div>
+    <div class="grid-2"><div class="card-panel"><canvas id="wardChart" height="250"></canvas></div><div class="card-panel"><div id="lga-feeds"></div></div></div>
+    <div class="card-panel"><table class="data-table" id="lga-assets"><thead><tr><th>Asset Name</th><th>Role</th><th>Ward</th><th>Score</th></tr></thead><tbody id="lga-assets-body"></tbody></table></div>
+  </main>
+</div>
+<script src="data.js"></script>
+<script>
+  const lgaList = [{id:1,name:"Jalingo",wards:12,pus:189,score:89,ops:312},{id:2,name:"Bali",wards:10,pus:156,score:71,ops:187},{id:3,name:"Gassol",wards:11,pus:178,score:82,ops:245},{id:4,name:"Wukari",wards:10,pus:167,score:76,ops:203},{id:5,name:"Ibi",wards:9,pus:142,score:68,ops:156},{id:6,name:"Takum",wards:11,pus:173,score:85,ops:234},{id:7,name:"Donga",wards:8,pus:134,score:73,ops:167},{id:8,name:"Kurmi",wards:9,pus:121,score:64,ops:134},{id:9,name:"Sardauna",wards:10,pus:145,score:62,ops:128},{id:10,name:"Zing",wards:8,pus:118,score:79,ops:156},{id:11,name:"Lau",wards:9,pus:112,score:74,ops:145},{id:12,name:"Ardo Kola",wards:10,pus:124,score:77,ops:167},{id:13,name:"Karim Lamido",wards:11,pus:156,score:69,ops:178},{id:14,name:"Yorro",wards:8,pus:98,score:81,ops:134},{id:15,name:"Gashaka",wards:10,pus:134,score:66,ops:145},{id:16,name:"Ussa",wards:8,pus:112,score:72,ops:156}];
+  
+  function loadLGA(id){
+    const lga = lgaList.find(l=>l.id==parseInt(id));
+    document.getElementById('lga-name').innerHTML = `${lga.name} LGA Dashboard`;
+    document.getElementById('lga-stats').innerHTML = `<div class="stat-card"><div class="label">Wards</div><div class="value">${lga.wards}</div></div><div class="stat-card"><div class="label">Polling Units</div><div class="value">${lga.pus}</div></div><div class="stat-card"><div class="label">Mobilisation</div><div class="value">${lga.score}%</div></div><div class="stat-card"><div class="label">Operatives</div><div class="value">${lga.ops}</div></div>`;
+    new Chart(document.getElementById('wardChart'), { type:'bar', data:{ labels:['Ward1','Ward2','Ward3','Ward4'], datasets:[{ label:'Score %', data:[82,78,85,71], backgroundColor:'#d4a13e' }] } });
+    document.getElementById('lga-assets-body').innerHTML = politicalAssets.filter(a=>a.lga===lga.name).slice(0,8).map(a=>`<tr><td>${a.name}</td><td>${a.role}</td><td>${a.ward}</td><td>${a.performanceScore}%</td></tr>`).join('');
+    document.getElementById('lga-feeds').innerHTML = intelligenceFeeds.filter(f=>f.lga===lga.name).map(f=>`<div class="feed-item">${f.message}<br><small>${f.time}</small></div>`).join('') || '<p>No recent intelligence feeds</p>';
+  }
+  loadLGA(1);
+</script>
+</body>
+</html>

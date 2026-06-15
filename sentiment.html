@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEISMS | Sentiment Analytics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-container">
+  <aside class="sidebar">[Same sidebar]</aside>
+  <main class="main-content">
+    <div class="top-bar"><div class="page-title"><h2>Sentiment Analytics & Media Monitoring</h2><p>Section 6.8 – Traditional media, social media trends, misinformation detection</p></div></div>
+    
+    <div class="grid-2">
+      <div class="card-panel"><h3><i class="fas fa-chart-pie"></i> Overall Public Sentiment</h3><canvas id="sentimentPie" height="200"></canvas></div>
+      <div class="card-panel"><h3><i class="fas fa-chart-line"></i> Sentiment Trend (Last 30 Days)</h3><canvas id="sentimentTrend" height="200"></canvas></div>
+    </div>
+    
+    <div class="card-panel"><h3><i class="fas fa-newspaper"></i> Media Monitoring Feed</h3><div id="media-feed"></div></div>
+    
+    <div class="card-panel"><h3><i class="fas fa-robot"></i> Misinformation Detection System</h3><div id="misinformation-alerts"></div></div>
+  </main>
+</div>
+<script src="data.js"></script>
+<script>
+  new Chart(document.getElementById('sentimentPie'), { type:'doughnut', data:{ labels:['Positive','Neutral','Negative'], datasets:[{ data:[62,27,11], backgroundColor:['#4ade80','#fbbf24','#f87171'] }] } });
+  new Chart(document.getElementById('sentimentTrend'), { type:'line', data:{ labels:['Week1','Week2','Week3','Week4'], datasets:[{ label:'Positive', data:[58,62,65,68], borderColor:'#4ade80' },{ label:'Negative', data:[14,12,11,10], borderColor:'#f87171' }] } });
+  
+  document.getElementById('media-feed').innerHTML = `
+    <div class="feed-item"><i class="fab fa-twitter"></i> @TarabaUpdates: "New education reforms welcomed by youth across Jalingo" - <span class="badge badge-success">Positive</span></div>
+    <div class="feed-item"><i class="fab fa-facebook"></i> Taraba Community Forum: "Security situation improving in Bali" - <span class="badge badge-success">Positive</span></div>
+    <div class="feed-item"><i class="fas fa-newspaper"></i> Daily Trust: "Governor Kefas' infrastructure push gains grassroots support" - <span class="badge badge-success">Positive</span></div>
+    <div class="feed-item"><i class="fab fa-whatsapp"></i> [MISINFORMATION ALERT] False claim about voter registration detected - <span class="badge badge-danger">Debunked</span></div>
+  `;
+  document.getElementById('misinformation-alerts').innerHTML = `<div class="alert-item"><i class="fas fa-shield-alt"></i> 3 misinformation claims detected and neutralized in last 24 hours. Rapid response team deployed.</div>`;
+</script>
+</body>
+</html>

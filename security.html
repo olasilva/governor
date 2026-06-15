@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEISMS | Security & Risk Framework</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-container">
+  <aside class="sidebar">[Same sidebar]</aside>
+  <main class="main-content">
+    <div class="top-bar"><div class="page-title"><h2>Security & Risk Mitigation Framework</h2><p>Section 16 – Advanced cybersecurity, multi-layer verification, risk management</p></div></div>
+    
+    <div class="grid-2">
+      <div class="card-panel"><h3><i class="fas fa-shield-virus"></i> Cybersecurity Infrastructure</h3><p><i class="fas fa-check-circle" style="color:#4ade80"></i> Multi-factor authentication active<br><i class="fas fa-check-circle" style="color:#4ade80"></i> End-to-end encryption deployed<br><i class="fas fa-check-circle" style="color:#4ade80"></i> Threat monitoring systems online<br><i class="fas fa-check-circle" style="color:#4ade80"></i> Backup recovery infrastructure<br><i class="fas fa-check-circle" style="color:#4ade80"></i> Audit logging mechanisms</p></div>
+      <div class="card-panel"><h3><i class="fas fa-fingerprint"></i> Security & Verification Unit</h3><p><strong>Team Lead:</strong> Col. Sani Musa (Rtd)<br><strong>Role:</strong> Data verification, field validation, risk management, security coordination<br><strong>24/7 Incident Response:</strong> <i class="fas fa-phone"></i> +234 700 SEC TEISMS</p></div>
+    </div>
+    
+    <div class="card-panel"><h3><i class="fas fa-exclamation-triangle"></i> Risk Matrix & Mitigation Strategies</h3><div class="risk-matrix" id="risk-matrix"></div></div>
+    
+    <div class="card-panel"><h3><i class="fas fa-chart-line"></i> Key Performance Indicators (Section 17)</h3><div class="stats-row"><div class="stat-card"><div class="label">Ward Coverage</div><div class="value">100%</div></div><div class="stat-card"><div class="label">Reporting Frequency</div><div class="value">94%</div></div><div class="stat-card"><div class="label">Verification Rate</div><div class="value">89%</div></div><div class="stat-card"><div class="label">Response Time</div><div class="value">4.2min</div></div></div></div>
+  </main>
+</div>
+<script src="data.js"></script>
+<script>
+  const risksList = [
+    { name:"Data Breaches", severity:"high", mitigation:"Advanced cybersecurity, encrypted systems" },
+    { name:"Political Sabotage", severity:"high", mitigation:"Multi-layer verification, compartmentalization" },
+    { name:"Misinformation Campaigns", severity:"medium", mitigation:"Real-time monitoring, rapid response" },
+    { name:"Weak Field Reporting", severity:"medium", mitigation:"Continuous training, performance incentives" },
+    { name:"Connectivity Challenges", severity:"low", mitigation:"Offline synchronization, hybrid systems" }
+  ];
+  document.getElementById('risk-matrix').innerHTML = risksList.map(r => `<div class="risk-item risk-${r.severity}"><strong>${r.name}</strong><br>Severity: ${r.severity.toUpperCase()}<br>Mitigation: ${r.mitigation}</div>`).join('');
+</script>
+</body>
+</html>

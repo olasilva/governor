@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEISMS | Polling Unit Intelligence Layer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-container">
+  <aside class="sidebar">[Same sidebar]</aside>
+  <main class="main-content">
+    <div class="top-bar"><div class="page-title"><h2>Polling Unit Intelligence Layer</h2><p>Section 6.4 – Foundation intelligence nodes · 2,847 Polling Units</p></div></div>
+    
+    <div class="stats-row">
+      <div class="stat-card"><div class="value" id="total-pus">0</div><div class="label">Total Polling Units</div></div>
+      <div class="stat-card"><div class="value" id="active-agents">0</div><div class="label">Agents Assigned</div></div>
+      <div class="stat-card"><div class="value" id="avg-turnout">0%</div><div class="label">Predicted Turnout</div></div>
+    </div>
+    
+    <div class="card-panel"><h3><i class="fas fa-search"></i> Polling Unit Directory</h3><input type="text" id="pu-search" placeholder="Search by PU name, LGA, or ward..." style="width:100%; padding:12px; margin-bottom:20px;"><div id="pu-list" class="polling-grid"></div></div>
+  </main>
+</div>
+<script src="data.js"></script>
+<script>
+  document.getElementById('total-pus').innerText = pollingUnits.length;
+  document.getElementById('active-agents').innerText = pollingUnits.filter(p=>p.agentAssigned).length;
+  document.getElementById('avg-turnout').innerText = Math.floor(pollingUnits.reduce((s,p)=>s+p.turnoutPrediction,0)/pollingUnits.length)+'%';
+  
+  function renderPollingUnits(filter=''){
+    let filtered = pollingUnits.filter(p=>p.name.toLowerCase().includes(filter)||p.lga.toLowerCase().includes(filter)||p.ward.toLowerCase().includes(filter)).slice(0,100);
+    document.getElementById('pu-list').innerHTML = filtered.map(p=>`<div class="polling-card"><strong>${p.name}</strong><br><small>${p.lga} | ${p.ward}</small><br>Registered: ${p.registeredVoters} | Turnout: ${p.turnoutPrediction}%<br><span class="badge ${p.agentAssigned?'badge-success':'badge-danger'}">${p.agentAssigned?'Agent Assigned':'No Agent'}</span></div>`).join('');
+  }
+  renderPollingUnits();
+  document.getElementById('pu-search').addEventListener('input', e=>renderPollingUnits(e.target.value.toLowerCase()));
+</script>
+</body>
+</html>
