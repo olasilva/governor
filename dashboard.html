@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEISMS | State Command Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-container">
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1><i class="fas fa-chart-line"></i> TEISMS</h1>
+      <p>TARABA ELECTORAL INTELLIGENCE & STRATEGIC MOBILISATION SYSTEM</p>
+    </div>
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-item active"><i class="fas fa-tachometer-alt"></i><span>State Command</span></a>
+      <a href="governor-portfolio.html" class="nav-item"><i class="fas fa-crown"></i><span>Governor's Portfolio</span></a>
+      <a href="lga-dashboard.html" class="nav-item"><i class="fas fa-building"></i><span>LGA Dashboards</span></a>
+      <a href="asset-registry.html" class="nav-item"><i class="fas fa-database"></i><span>Asset Registry</span></a>
+      <a href="field-reporting.html" class="nav-item"><i class="fas fa-mobile-alt"></i><span>Field Reporting</span></a>
+      <a href="electoral-map.html" class="nav-item"><i class="fas fa-map"></i><span>GIS Electoral Map</span></a>
+      <a href="sentiment.html" class="nav-item"><i class="fas fa-chart-line"></i><span>Sentiment Analytics</span></a>
+      <a href="wards.html" class="nav-item"><i class="fas fa-users"></i><span>Ward Intelligence</span></a>
+      <a href="polling-units.html" class="nav-item"><i class="fas fa-flag-checkered"></i><span>Polling Units</span></a>
+      <a href="implementation.html" class="nav-item"><i class="fas fa-road"></i><span>Implementation</span></a>
+      <a href="security.html" class="nav-item"><i class="fas fa-shield-alt"></i><span>Security & Risk</span></a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="top-bar">
+      <div class="page-title">
+        <h2>State Command Dashboard</h2>
+        <p>Real-time statewide intelligence feeds · Strategic Command Centre</p>
+      </div>
+      <div class="user-info">
+        <i class="fas fa-shield-alt"></i>
+        <span>State Strategic Intelligence Council</span>
+        <span class="badge badge-gold">Level 4 Access</span>
+      </div>
+    </div>
+
+    <!-- Governor Quick Access Card -->
+    <div class="governor-highlight" onclick="window.location.href='governor-portfolio.html'">
+      <div class="governor-icon"><i class="fas fa-crown"></i></div>
+      <div class="governor-info">
+        <h3>His Excellency, Agbu Kefas</h3>
+        <p>Executive Governor of Taraba State · "Moving Forward" Agenda</p>
+        <span class="badge badge-gold">View Strategic Portfolio →</span>
+      </div>
+    </div>
+
+    <!-- KPI Stats Row - Section 6.1 -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="label"><i class="fas fa-users"></i> Active Field Operatives</div>
+        <div class="value" id="stat-operatives">2,847</div>
+        <div class="trend positive"><i class="fas fa-arrow-up"></i> +12% this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="label"><i class="fas fa-file-alt"></i> Reports (24h)</div>
+        <div class="value" id="stat-reports">342</div>
+        <div class="trend"><i class="fas fa-check-circle"></i> 89% verified</div>
+      </div>
+      <div class="stat-card">
+        <div class="label"><i class="fas fa-exclamation-triangle"></i> Active Alerts</div>
+        <div class="value" id="stat-alerts">8</div>
+        <div class="trend warning"><i class="fas fa-clock"></i> 3 high priority</div>
+      </div>
+      <div class="stat-card">
+        <div class="label"><i class="fas fa-flag-checkered"></i> Ward Coverage</div>
+        <div class="value">168/168</div>
+        <div class="trend positive"><i class="fas fa-check"></i> 100% active</div>
+      </div>
+    </div>
+
+    <!-- LGA Quick Stats Grid -->
+    <div class="section-header">
+      <h3><i class="fas fa-chart-simple"></i> LGA Performance Dashboard <span style="font-size:0.8rem;">(Section 6.2)</span></h3>
+      <p>Performance metrics across all 16 Local Government Areas</p>
+    </div>
+    <div class="lga-grid" id="lga-grid-container"></div>
+
+    <!-- Grid Layout for Intelligence Feeds & Charts -->
+    <div class="grid-2">
+      <div class="card-panel">
+        <h3><i class="fas fa-clock"></i> Real-Time Intelligence Feeds <span style="font-size:0.7rem;">(Section 6.1)</span></h3>
+        <div id="realtime-feeds" class="feeds-container"></div>
+      </div>
+      <div class="card-panel">
+        <h3><i class="fas fa-chart-pie"></i> Mobilisation Efficiency by LGA</h3>
+        <canvas id="mobilisationChart" height="250"></canvas>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card-panel">
+        <h3><i class="fas fa-exclamation-triangle"></i> Strategic Alerts & Incident Escalation</h3>
+        <div id="alerts-container" class="alerts-list"></div>
+      </div>
+      <div class="card-panel">
+        <h3><i class="fas fa-chart-line"></i> Governance Sentiment Analytics</h3>
+        <canvas id="sentimentTrendChart" height="250"></canvas>
+      </div>
+    </div>
+
+    <!-- Political Asset Registry Summary -->
+    <div class="card-panel">
+      <h3><i class="fas fa-database"></i> Political Asset Registry Overview <span style="font-size:0.7rem;">(Section 6.7 & 7)</span></h3>
+      <div class="asset-summary-grid" id="asset-summary"></div>
+    </div>
+
+    <!-- Senatorial Coordination (Section 8) -->
+    <div class="grid-3">
+      <div class="card-panel">
+        <h3><i class="fas fa-star-of-life"></i> Northern Senatorial Zone</h3>
+        <p>LGAs: Jalingo, Ardo Kola, Lau, Karim Lamido, Zing, Yorro</p>
+        <div class="progress-bar"><div class="progress" style="width:78%">78% Mobilisation</div></div>
+        <div class="senatorial-stats"><i class="fas fa-users"></i> 1,245 operatives | <i class="fas fa-check-circle"></i> 6/6 active</div>
+      </div>
+      <div class="card-panel">
+        <h3><i class="fas fa-star-of-life"></i> Central Senatorial Zone</h3>
+        <p>LGAs: Bali, Gassol, Gashaka, Kurmi, Sardauna</p>
+        <div class="progress-bar"><div class="progress" style="width:72%">72% Mobilisation</div></div>
+        <div class="senatorial-stats"><i class="fas fa-users"></i> 889 operatives | <i class="fas fa-exclamation-triangle"></i> 2 high-risk LGAs</div>
+      </div>
+      <div class="card-panel">
+        <h3><i class="fas fa-star-of-life"></i> Southern Senatorial Zone</h3>
+        <p>LGAs: Wukari, Ibi, Takum, Donga, Ussa</p>
+        <div class="progress-bar"><div class="progress" style="width:81%">81% Mobilisation</div></div>
+        <div class="senatorial-stats"><i class="fas fa-users"></i> 956 operatives | <i class="fas fa-chart-line"></i> Highest youth turnout</div>
+      </div>
+    </div>
+
+    <!-- Federal-State Coordination (Section 13) -->
+    <div class="card-panel alignment-card">
+      <h3><i class="fas fa-handshake"></i> Strategic Alignment: Federal & State Vision</h3>
+      <div class="alignment-flex">
+        <div><i class="fas fa-flag-checkered"></i> <strong>Renewed Hope Agenda</strong><br>President Bola Ahmed Tinubu</div>
+        <div><i class="fas fa-arrow-right"></i></div>
+        <div><i class="fas fa-chart-line"></i> <strong>"Moving Forward" Philosophy</strong><br>Governor Agbu Kefas</div>
+        <div><i class="fas fa-arrow-right"></i></div>
+        <div><i class="fas fa-brain"></i> <strong>TEISMS Intelligence Architecture</strong><br>2027 Electoral Continuity</div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div><i class="fas fa-crown"></i> TEISMS – In strategic alignment with H.E. Agbu Kefas & Renewed Hope Agenda</div>
+      <div>© 2026 – Digital Governance & Electoral Intelligence Architecture | Classified – Strategic Command</div>
+    </footer>
+  </main>
+</div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    renderLGAQuickGrid();
+    renderRealtimeFeeds();
+    renderAlertsList();
+    renderMobilisationChart();
+    renderSentimentTrendChart();
+    renderAssetSummary();
+  });
+</script>
+</body>
+</html>

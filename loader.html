@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEISMS | Securing Your Connection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0e1a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Subtle animated gradient background */
+    body {
+      background: radial-gradient(ellipse at 20% 30%, #0d1f2d, #070b12);
+    }
+
+    /* Main container */
+    .loader-card {
+      background: rgba(18, 22, 35, 0.7);
+      backdrop-filter: blur(20px);
+      border-radius: 48px;
+      padding: 48px 56px;
+      max-width: 520px;
+      width: 90%;
+      text-align: center;
+      border: 1px solid rgba(212, 161, 62, 0.2);
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    /* Logo */
+    .logo {
+      margin-bottom: 32px;
+    }
+    .logo-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #d4a13e, #a47c2c);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .logo-icon i {
+      font-size: 32px;
+      color: #0a1a2f;
+    }
+    .logo h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: white;
+      letter-spacing: -0.3px;
+    }
+    .logo p {
+      font-size: 0.7rem;
+      color: #7a8494;
+      margin-top: 4px;
+    }
+
+    /* Welcome message */
+    .welcome-message {
+      margin-bottom: 32px;
+    }
+    .welcome-message h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #d4a13e;
+      margin-bottom: 8px;
+    }
+    .welcome-message p {
+      font-size: 0.85rem;
+      color: #8e99ab;
+      line-height: 1.5;
+    }
+
+    /* Progress area */
+    .progress-area {
+      margin: 32px 0;
+    }
+
+    /* Simple elegant progress bar */
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #d4a13e, #e8b85a);
+      border-radius: 10px;
+      transition: width 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    /* Percentage */
+    .percentage {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #d4a13e;
+    }
+
+    /* Status text - human readable */
+    .status-area {
+      margin: 24px 0;
+      min-height: 70px;
+    }
+    .status-text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: #b9c3d4;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 12px 20px;
+      border-radius: 60px;
+      width: fit-content;
+      margin: 0 auto;
+    }
+    .status-text i {
+      font-size: 1rem;
+      color: #d4a13e;
+    }
+    .status-text .fa-check-circle {
+      color: #4ade80;
+    }
+
+    /* Security note - human touch */
+    .security-note {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.7rem;
+      color: #5a6478;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .security-note span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Manual redirect link - subtle */
+    .manual-link {
+      margin-top: 24px;
+    }
+    .manual-link a {
+      color: #5a6478;
+      text-decoration: none;
+      font-size: 0.75rem;
+      transition: 0.2s;
+    }
+    .manual-link a:hover {
+      color: #d4a13e;
+    }
+
+    /* Simple spinner - elegant */
+    .simple-spinner {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 20px;
+      position: relative;
+    }
+    .simple-spinner .spinner-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 3px solid rgba(212, 161, 62, 0.15);
+      border-top: 3px solid #d4a13e;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 500px) {
+      .loader-card { padding: 32px 24px; }
+      .status-text { font-size: 0.8rem; padding: 8px 16px; }
+    }
+  </style>
+</head>
+<body>
+<div class="loader-card">
+  <div class="logo">
+    <div class="logo-icon">
+      <i class="fas fa-chart-line"></i>
+    </div>
+    <h2>TEISMS</h2>
+    <p>TARABA ELECTORAL INTELLIGENCE SYSTEM</p>
+  </div>
+
+  <div class="welcome-message">
+    <h3>Welcome Back.</h3>
+    <p>Securely connecting you to the State Command Intelligence Dashboard</p>
+  </div>
+
+  <div class="simple-spinner">
+    <div class="spinner-ring"></div>
+  </div>
+
+  <div class="progress-area">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="percentage" id="percentageDisplay">0%</div>
+  </div>
+
+  <div class="status-area">
+    <div class="status-text" id="statusMessage">
+      <i class="fas fa-shield-alt"></i>
+      <span>Initializing secure session...</span>
+    </div>
+  </div>
+
+  <div class="security-note">
+    <span><i class="fas fa-lock"></i> Encrypted connection</span>
+    <span><i class="fas fa-fingerprint"></i> Multi-factor ready</span>
+    <span><i class="fas fa-file-alt"></i> Session logged</span>
+  </div>
+
+  <div class="manual-link">
+    <a href="index.html" id="manualRedirect"><i class="fas fa-arrow-right"></i> Continue manually if redirect doesn't start</a>
+  </div>
+</div>
+
+<script>
+  // Human-crafted loading sequence with realistic delays
+  const steps = [
+    { percent: 5, text: "Initializing secure session...", icon: "fa-shield-alt", delay: 300 },
+    { percent: 12, text: "Verifying credentials...", icon: "fa-key", delay: 320 },
+    { percent: 20, text: "Establishing encrypted channel...", icon: "fa-lock", delay: 350 },
+    { percent: 28, text: "Connecting to State Command...", icon: "fa-tower-broadcast", delay: 380 },
+    { percent: 35, text: "Loading intelligence modules...", icon: "fa-cubes", delay: 340 },
+    { percent: 42, text: "Syncing 16 LGA dashboards...", icon: "fa-building", delay: 360 },
+    { percent: 50, text: "Processing 168 ward reports...", icon: "fa-users", delay: 370 },
+    { percent: 58, text: "Loading polling unit data (2,847 units)...", icon: "fa-flag-checkered", delay: 390 },
+    { percent: 65, text: "Retrieving political asset registry...", icon: "fa-database", delay: 350 },
+    { percent: 72, text: "Loading GIS electoral maps...", icon: "fa-map", delay: 340 },
+    { percent: 80, text: "Calibrating sentiment analytics...", icon: "fa-chart-line", delay: 360 },
+    { percent: 88, text: "Establishing real-time feeds...", icon: "fa-broadcast-tower", delay: 370 },
+    { percent: 95, text: "Finalizing security protocols...", icon: "fa-shield-haltered", delay: 380 },
+    { percent: 100, text: "Access granted. Redirecting...", icon: "fa-check-circle", delay: 500 }
+  ];
+
+  let currentIndex = 0;
+  const progressFill = document.getElementById('progressFill');
+  const percentageDisplay = document.getElementById('percentageDisplay');
+  const statusMessageDiv = document.getElementById('statusMessage');
+
+  function updateLoader() {
+    if (currentIndex < steps.length) {
+      const step = steps[currentIndex];
+      
+      // Update progress bar
+      progressFill.style.width = step.percent + '%';
+      percentageDisplay.textContent = step.percent + '%';
+      
+      // Update status message with icon
+      const iconClass = step.percent === 100 ? 'fa-check-circle' : step.icon;
+      const iconColor = step.percent === 100 ? '#4ade80' : '#d4a13e';
+      statusMessageDiv.innerHTML = `<i class="fas ${iconClass}" style="color: ${iconColor}"></i><span>${step.text}</span>`;
+      
+      currentIndex++;
+      setTimeout(updateLoader, step.delay);
+    } else {
+      // Redirect to home page
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 600);
+    }
+  }
+
+  // Start the loader
+  setTimeout(updateLoader, 200);
+
+  // Manual redirect fallback
+  document.getElementById('manualRedirect').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location.href = 'index.html';
+  });
+</script>
+</body>
+</html>
